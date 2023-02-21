@@ -1,6 +1,7 @@
 package com.wb.wbbackend;
 
-import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -18,7 +19,18 @@ import com.wb.wbbackend.repositorios.RepositorioCliente;
 public class WbbackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WbbackendApplication.class, args);
+		// Propriedades
+		Map<String,Object> propriedades = new HashMap<>();
+		propriedades.put("server.port", "32832");
+		propriedades.put("spring.jpa.show-sql", "true");
+		
+		// Inicialização de propriedades em código
+		SpringApplication app = new SpringApplication(WbbackendApplication.class);
+		app.setDefaultProperties(propriedades);
+        app.run(args);
+        
+        // Forma padrão para iniciar a aplicação
+		//SpringApplication.run(WbbackendApplication.class, args);
 	}
 
 	@Component
@@ -28,9 +40,6 @@ public class WbbackendApplication {
 
 		@Override
 		public void run(ApplicationArguments args) throws Exception {
-			Calendar calendario = Calendar.getInstance();
-			calendario.set(2002, 05, 15);
-
 			Cliente cliente = new Cliente();
 			cliente.setNome("Pedro Alcântara de Bragança e Bourbon");
 			cliente.setSobreNome("Dom Pedro");

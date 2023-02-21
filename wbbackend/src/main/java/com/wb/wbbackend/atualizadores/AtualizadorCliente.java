@@ -1,8 +1,5 @@
 package com.wb.wbbackend.atualizadores;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,13 +39,12 @@ public class AtualizadorCliente implements Atualizador<Cliente> {
 			}
 		}
 		if (atualizacao.getTelefones().size() > 0) {
-			Set<Telefone> conjunto = new HashSet<>();
-			conjunto.addAll(alvo.getTelefones());
-			conjunto.addAll(atualizacao.getTelefones());
-
 			alvo.getTelefones().clear();
-			for (Telefone telefone : conjunto) {
+			for (Telefone telefone : atualizacao.getTelefones()) {
 				if (!verificadorTelefone.verificar(telefone)) {
+					Telefone novoTelefone = new Telefone();
+					novoTelefone.setDdd(telefone.getDdd());
+					novoTelefone.setNumero(telefone.getNumero());
 					alvo.getTelefones().add(telefone);
 				}
 			}
