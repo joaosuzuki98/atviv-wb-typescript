@@ -34,7 +34,7 @@ public class ControleCliente {
 		Cliente cliente = repositorio.findById(id).get();
 		if (cliente != null) {
 			hateoas.adicionarLink(cliente);
-			return new ResponseEntity<Cliente>(cliente, HttpStatus.FOUND);
+			return new ResponseEntity<Cliente>(cliente, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Cliente>(HttpStatus.NOT_FOUND);
 		}
@@ -44,7 +44,7 @@ public class ControleCliente {
 	public ResponseEntity<List<Cliente>> obterClientes() {
 		List<Cliente> clientes = repositorio.findAll();
 		hateoas.adicionarLink(clientes);
-		return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.FOUND);
+		return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.OK);
 	}
 
 	@PutMapping("/cliente/atualizar")
